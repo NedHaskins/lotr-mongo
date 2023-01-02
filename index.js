@@ -22,7 +22,10 @@ async function connectToMongo() {
 
 	//'mongodb+srv://nedtheadmin:rNtIzpxVQ1k48S1P@my-new-cluster.u7spzrw.mongodb.net/test';
 	
-	'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.1';
+	// 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.1';
+
+	//Railway MongoDB instance
+	'mongodb://mongo:ATAsnSb2LW8DwqcNZDDH@containers-us-west-79.railway.app:7267';
 
 	await mongoose.connect(endpoint);
 }
