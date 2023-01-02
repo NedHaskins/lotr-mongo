@@ -44,20 +44,29 @@ const Character = mongoose.model('Character', lotrSchema);
 
 
 //Setting the following function to 'async' allows for the await keyword.
-app.get('/', async function(request, response) {
-	const characters = await Character.find();
-	console.log(characters);
-	response.send(characters);
+app.get('/', function(request, response) {
 
+	const form = `
+		<form action='/add' method='POST'>
+			<label>Name</label>
+			<input type='text' name='name' />
+			<label>Type</label>
+			<input type='text' name='type' />
+			<button type='submit'>Submit</button>
+		</form>
+	`;
+
+	response.send(form);
 })
 
 
-app.get('/create/:name', function(request, response) {
-	const character = new Character ({name: request.params.name, type: undefined, description: ""})
-	console.log(character);
-	character.save();
-	response.send(`<h1>Created: ${character.name}</h1>`);
+app.post('/add', async function(request, response) {
 	console.log(request.body);
+	const character = new Character(request.body); //why does request.params not work here?
+	await character.save();
+	console.log(character);
+	response.redirect('/');
+
 })
 
 
@@ -78,7 +87,7 @@ app.get('/update', async function(request, response) {
 
 
 //this is set up this way for the Railway deployment
-app.listen(PORT);
+app.listen(process.env.PORT);
 
 
 
