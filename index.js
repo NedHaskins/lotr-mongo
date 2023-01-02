@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 
 mongoose.set('strictQuery', true);
@@ -77,8 +77,8 @@ app.get('/update', async function(request, response) {
 })
 
 
-
-app.listen('2000');
+//this is set up this way for the Railway deployment
+app.listen(PORT);
 
 
 
