@@ -1,7 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import * as dotenv from 'dotenv';
 
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 mongoose.set('strictQuery', true);
 
@@ -10,12 +11,8 @@ const app = express();
 //Used to parse URL-encoded bodies
 app.use(express.urlencoded());
 
-dotenv.config();
-
-
 //Now, print the available environment variables.
 console.log(process.env.API_HOST);
-
 
 async function connectToMongo() {
 	const endpoint = 
@@ -96,5 +93,10 @@ app.get('/update', async function(request, response) {
 })
 
 
+
+const PORT = process.env.MONGOPORT;
+
 //this is set up this way for the Railway deployment
-app.listen(process.env.MONGOPORT);
+app.listen(PORT, function () {
+	console.log("Listening to the active port.");
+});
