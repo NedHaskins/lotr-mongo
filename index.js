@@ -27,7 +27,7 @@ async function connectToMongo() {
 	// 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.1';
 
 	//Railway MongoDB instance - data will be stored here
-	`mongodb://mongo:ATAsnSb2LW8DwqcNZDDH@containers-us-west-79.railway.app:7267`;
+	`mongodb://mongo:${process.env.RAILPASSWORD}@containers-us-west-79.railway.app:7267`;
 
 	await mongoose.connect(endpoint);
 }
