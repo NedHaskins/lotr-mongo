@@ -11,7 +11,7 @@ import cors from 'cors';
 const app = express();
 
 //Used to parse URL-encoded bodies
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 //Used to parse JSON-encoded bodies
 app.use(express.json());
@@ -20,10 +20,6 @@ app.use(express.json());
 
 app.use( cors() );
 
-
-
-//Now, print the available environment variables.
-console.log(process.env.API_HOST);
 
 async function connectToMongo() {
 	const endpoint = 
