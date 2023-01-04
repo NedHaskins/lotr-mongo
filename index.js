@@ -161,6 +161,6 @@ app.get('/delete/:name', async function(request, response) {
  
 
 //this is set up this way for the Railway deployment
-// app.listen(process.env.PORT, function () {
-// 	console.log("Listening to the active port.");
-// });
+app.listen(process.env.PORT, function () {
+	console.log("Listening to the active port.");
+});
