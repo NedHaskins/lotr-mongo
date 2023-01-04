@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+
 import mongoose from 'mongoose';
 
 mongoose.set('strictQuery', true);
@@ -11,7 +12,7 @@ import cors from 'cors';
 const app = express();
 
 //Used to parse URL-encoded bodies
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded ({ extended: true }) );
 
 //Used to parse JSON-encoded bodies
 app.use(express.json());
