@@ -17,10 +17,7 @@ app.use(express.urlencoded ({ extended: true }) );
 //Used to parse JSON-encoded bodies
 app.use(express.json());
 
-
-
-app.use( cors() );
-
+app.use(cors());
 
 async function connectToMongo() {
 	const endpoint = 
@@ -44,7 +41,10 @@ async function connectToMongo() {
 
 
 //if at any time there's an error...run this
-connectToMongo().catch(err => console.log(err));
+connectToMongo()
+	.catch(function(err){
+		console.log(err)
+	});
 
 
 //Order is important here!  First the schema definition, then the model.
@@ -161,6 +161,6 @@ app.get('/delete/:name', async function(request, response) {
  
 
 //this is set up this way for the Railway deployment
-app.listen(process.env.PORT, function () {
+app.listen(process.env.MONGOPORT, function () {
 	console.log("Listening to the active port.");
 });
