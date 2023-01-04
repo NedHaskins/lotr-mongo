@@ -95,13 +95,13 @@ app.get('/characters', async function(request, response) {
 			</li>`;
 	})
 
-	template += `</ul><a href='/add'>Add a character</a>`;
+	template += `</ul><a href='/'>Add a character</a>`;
 	response.send(template);
 })
 
 
-app.get('/add/:name', async function(request, response) {
-	const character = new Character( {name: request.params.name}); //why does request.params not work here?
+app.post('/add', async function(request, response) {
+	const character = new Character( request.body ); //why does request.params not work here?
 	character.save();
 	console.log(character);
 	response.redirect('/characters');
@@ -109,14 +109,24 @@ app.get('/add/:name', async function(request, response) {
 
 
 
+
+
+
+
+
+
+
 //Returns the form for updating an existing record.
 app.get('/update/:name', async function(request, response) {
+
+	const character = await Character.findOne({name: request.params.name}).exec();
+	console.log(character.name);
 	const form = `
 		<form action='/update/${request.params.name}' method='POST'>
 			<label>Name</label>
-			<input type='text' name='name' />
+			<input type='text' name='name' value='${character.name}' />
 			<label>Type</label>
-			<input type='text' name='type' />
+			<input type='text' name='type' value='${character.type}'/>
 			<button type='submit'>Submit</button>
 		</form>
 	`;
@@ -125,9 +135,8 @@ app.get('/update/:name', async function(request, response) {
 
 
 app.post('/update/:name', async function(request, response) {
-	const res = await Character.updateOne(
-		{ name: request.params.name }, //the old value
-		{ name: request.body.name } //the new value
+	const res = await Character.updateOne( 
+		{name: request.params.name}, request.body
 	);
 	if(res.acknowledged) {
 		console.log( "Record was updated." )
@@ -152,7 +161,7 @@ app.get('/delete/:name', async function(request, response) {
 
 
 
-const PORT = process.env.MONGOPORT;
+const PORT = process.env.PORT;
 
 //this is set up this way for the Railway deployment
 app.listen(PORT, function () {
