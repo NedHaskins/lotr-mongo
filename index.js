@@ -157,9 +157,9 @@ app.get('/delete/:name', async function(request, response) {
 
 
 
-const PORT = process.env.PORT;
+ 
 
 //this is set up this way for the Railway deployment
-app.listen(PORT, function () {
+app.listen(process.env.PORT, function () {
 	console.log("Listening to the active port.");
 });
