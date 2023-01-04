@@ -80,7 +80,7 @@ app.get('/', function(request, response) {
 //Commands for a read request.
 app.get('/characters', async function(request, response) {
 	const characters = await Character.find();
-	console.log(characters);
+	console.log('test', characters);
 
 	var template = `<h1>List</h1><ul>`;
 
@@ -99,7 +99,7 @@ app.get('/characters', async function(request, response) {
 
 app.post('/add', async function(request, response) {
 	const character = new Character( request.body ); //why does request.params not work here?
-	character.save();
+	await character.save();
 	console.log(character);
 	response.redirect('/characters');
 })
