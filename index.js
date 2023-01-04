@@ -82,6 +82,7 @@ app.get('/characters', async function(request, response) {
 	const characters = await Character.find();
 	console.log('test', characters);
 
+
 	var template = `<h1>List</h1><ul>`;
 
 	characters.forEach( function(character) {
@@ -155,7 +156,11 @@ app.get('/delete/:name', async function(request, response) {
 
 
 
-
+app.get('/api/characters', async function(request, response) {
+	const characters = await Character.find();
+	console.log(characters);
+	response.send(characters);
+})
 
 
  
