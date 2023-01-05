@@ -19,17 +19,20 @@ app.use(express.json());
 
 app.use(cors());
 
+
+const { MONGOUSER, MONGOPASSWORD, MONGOHOST, MONGOPORT } = process.env;
+
 async function connectToMongo() {
 	const endpoint = 
 
 	//Cloud instance of MongoDB 
 	// `mongodb+srv://nedtheadmin:${process.env.PASSWORD}@my-new-cluster.u7spzrw.mongodb.net/test`;
 	
-	//Local instance of MongoDB
+	//Local machine instance of MongoDB
 	//'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.1';
 
-	//Railway MongoDB instance - data will be stored here
-	`mongodb://${process.env.MONGOUSER}:${process.env.MONGOPASSWORD}@${process.env.MONGOHOST}:${process.env.MONGOPORT}`;
+	//Railway MongoDB instances - data will be stored here
+	`mongodb://${MONGOUSER}:${MONGOPASSWORD}@${MONGOHOST}:${MONGOPORT}`;
 
 	await mongoose.connect(endpoint);
 }
@@ -81,7 +84,6 @@ app.get('/', function(request, response) {
 app.get('/characters', async function(request, response) {
 	const characters = await Character.find();
 	console.log('test', characters);
-
 
 	var template = `<h1>List</h1><ul>`;
 
